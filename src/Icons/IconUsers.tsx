@@ -1,4 +1,4 @@
-import React from "react";
+ 
 import { CiUser } from "react-icons/ci";
 
 interface IconUsersProps {

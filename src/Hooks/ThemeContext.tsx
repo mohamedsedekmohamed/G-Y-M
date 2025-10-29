@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import  { createContext, useContext, useState, useEffect } from "react";
 interface ThemeContextType {
   theme: "light" | "dark";
   toggleTheme: () => void;
@@ -15,7 +15,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   );
 
   useEffect(() => {
-    // حط الكلاس في الـ html علشان Tailwind تشتغل
     document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
   }, [theme]);
