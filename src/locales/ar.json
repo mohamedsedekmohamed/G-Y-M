@@ -1,0 +1,33 @@
+{
+  "admin": "المسؤول",
+  "dashboard": "لوحة التحكم",
+  "search": "ابحث...",
+  "lang_en": "الإنجليزية",
+  "lang_ar": "العربية",
+ "sidebar": {
+  "dashboard": "لوحة التحكم",
+  "attendance": "الحضور",
+  "users": "المستخدمين",
+  "store": "المتجر",
+  "classes": "الفصول",
+  "packages": "الباقات",
+  "rent": "الإيجار",
+  "private": "الخاص",
+  "settings": "الإعدادات",
+  "accountings": "المحاسبة",
+  "reports": "التقارير",
+  "major": "رئيسي",
+  "sub": "الاشتراكات"
+},
+  "Add": "إضافة",
+  "Stores": "المتاجر",
+  "Rent": "الإيجار",
+  "Private": "الخاص",
+  "Classes": "الفصول",
+  "Attendance": "الحضور",
+  "Users": "المستخدمين",
+  "Packages": "الباقات",
+  "Settings": "الإعدادات",
+  "Loading":"تحميل...",
+  "Edit":"تعديل"
+}

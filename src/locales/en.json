@@ -1,0 +1,35 @@
+{
+  "admin": "Admin",
+  "dashboard": "Dashboard",
+  "search": "Search...",
+  "lang_en": "English",
+  "lang_ar": "العربية",
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "attendance": "Attendance",
+    "users": "Users",
+    "store": "Store",
+    "classes": "Classes",
+    "packages": "Packages",
+    "rent": "Rent",
+    "private": "Private",
+    "settings": "Settings",
+    "accountings": "Accountings",
+    "reports": "Reports",
+    "major":"majors",
+    "sub":"Subscriptions"
+  },
+  "Add": "Add",
+  "Stores": "Stores",
+  "Rent": "Rent",
+  "Private": "Private",
+  "Classes": "Classes",
+  "Attendance": "Attendance",
+  "Users": "Users",
+  "Packages": "Packages",
+  "Settings": "Settings",
+  "Loading":"Loading...",
+  "Edit":"Edit"
+
+
+}
