@@ -49,7 +49,7 @@ const AddCountry: React.FC = () => {
   };
 
   const handleSave = async () => {
-    if (!formData.name.trim()) {
+    if (!formData.name?.trim()) {
       toast.error("Please enter a country name.");
       return;
     }

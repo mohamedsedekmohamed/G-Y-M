@@ -6,7 +6,7 @@ const delay = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 interface ResponseState<T> {
-  data: T[]| null;
+  data: T | null;
   loading: boolean;
   error: string | null;
   status: number | null;
