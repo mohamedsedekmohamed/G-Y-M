@@ -1,4 +1,3 @@
-// InputArrow.tsx
  
 import { useTheme } from "../Hooks/ThemeContext";
 

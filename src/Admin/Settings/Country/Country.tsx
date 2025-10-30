@@ -1,4 +1,4 @@
-import React,{ useEffect } from "react";
+import React,{ useEffect,useMemo } from "react";
 import ButtonAdd from "../../../Ui/ButtonAdd";
 import Table from "../../../Ui/Table";
 import { useTheme } from "../../../Hooks/ThemeContext";
@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import Loading from "../../../Component/Loading";
 import { useNavigate } from "react-router-dom";
+import { useSearchStore } from "../../../store/useSearchStore";
+
 interface Country {
   id: string;
   name: string;
@@ -15,7 +17,8 @@ interface Country {
   updatedAt: string;
 }
 
-const Country: React.FC = () => {
+const Country : React.FC = () => {
+    const { searchQuery } = useSearchStore();
   const { theme } = useTheme();
   const { data, loading, error, get } = useGet<Country[]>();
   const { del } = useDelete();
@@ -52,12 +55,8 @@ const nav=useNavigate()
   };
 
   const columns = [
-    // {
-    //   key: "id" as keyof Country,
-    //   label: "N",
-    //   render: (  index: number) => index + 1,
-    // },
-    { key: "name", label: " Name" },
+   
+    { key: "name", label: " Country" },
     {
       key: "actions",
       label: "Actions",
@@ -96,6 +95,12 @@ const nav=useNavigate()
       },
     },
   ];
+ const filteredCountry = useMemo(() => {
+    if (!searchQuery) return data;
+    return data?.filter((country) =>
+      country.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [data, searchQuery]);
 
   if (loading)
     return (
@@ -116,11 +121,11 @@ const nav=useNavigate()
         </p>
       )}
 
-      {!loading && !error && Array.isArray(data) && data.length > 0 && (
-        <Table<Country> columns={columns} data={data} />
+      {!loading && !error && Array.isArray(filteredCountry) && filteredCountry.length > 0 && (
+        <Table<Country> columns={columns} data={filteredCountry} />
       )}
 
-      {!loading && !error && (!Array.isArray(data) || data.length === 0) && (
+      {!loading && !error && (!Array.isArray(filteredCountry) || filteredCountry.length === 0) && (
         <p
           className={theme === "dark" ? "text-gray-400" : "text-gray-500"}
         >

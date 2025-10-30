@@ -23,11 +23,9 @@ const AddCountry: React.FC = () => {
   const { put, loading: putLoading } = usePut();
 
   const [formData, setFormData] = useState<Country>({ name: "" });
-  const isEdit = countryId ? true:false
+  const isEdit = !!countryId 
 
   useEffect(() => {
-    console.log(isEdit)
-    console.log(countryId)
     if (isEdit && countryId) {
       get(`https://bcknd.sportego.org/api/locations/countries/${countryId}`);
     }

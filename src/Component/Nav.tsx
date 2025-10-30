@@ -8,10 +8,12 @@ import { FaUserCircle } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../Hooks/ThemeContext";
-
+import { useSearchStore } from "../store/useSearchStore";
+  
 const Nav: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { theme, toggleTheme } = useTheme();
+  const { searchQuery, setSearchQuery } = useSearchStore();
 
   useEffect(() => {
     const savedLang = localStorage.getItem("lang") || "en";
@@ -55,7 +57,6 @@ const Nav: React.FC = () => {
         </div>
       </div>
 
-      {/* Search Input */}
       <div className="relative w-full max-w-xs md:max-w-md">
         <FiSearch
           className={`absolute w-5 h-5 -translate-y-1/2 left-3 top-1/2 ${
@@ -63,6 +64,8 @@ const Nav: React.FC = () => {
           }`}
         />
         <input
+         value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
           type="text"
           placeholder={t("search")}
           className={`w-full rounded-full pl-10 pr-3 py-1.5 text-sm focus:ring-2 focus:outline-none transition
