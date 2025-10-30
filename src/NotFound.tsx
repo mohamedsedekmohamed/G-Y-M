@@ -1,10 +1,10 @@
  
 import { Link } from "react-router-dom";
 import { useTheme } from "./Hooks/useTheme";
-
+import { useNavigate } from "react-router-dom";
 const Error = () => {
   const { theme } = useTheme();
-
+const nav=useNavigate()
   return (
     <section
       className={`relative h-screen w-screen flex justify-center items-center transition-colors duration-300 ${
@@ -38,8 +38,8 @@ const Error = () => {
               >
                 The page you are looking for may have been deleted
               </p>
-              <Link
-                to={-1}
+              <button
+                onClick={()=>{nav(-1)}}
                 className={`inline-block rounded-lg border px-8 py-3 text-center text-base font-semibold transition ${
                   theme === "dark"
                     ? "border-maincolor text-maincolor hover:bg-maincolor hover:text-white"
@@ -47,7 +47,7 @@ const Error = () => {
                 }`}
               >
                 Go To Home
-              </Link>
+              </button>
             </div>
           </div>
         </div>

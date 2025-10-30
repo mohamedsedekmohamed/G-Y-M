@@ -1,5 +1,5 @@
 import  { useState } from "react";
-import { FaPlus, FaTrash, FaEdit, FaSave, FaTimes } from "react-icons/fa";
+import { FaPlus, FaTrash,  FaSave, FaTimes } from "react-icons/fa";
 
 interface MealNote {
   id: number;

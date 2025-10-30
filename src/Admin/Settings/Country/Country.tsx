@@ -52,11 +52,11 @@ const nav=useNavigate()
   };
 
   const columns = [
-    {
-      key: "id" as keyof Country,
-      label: "N",
-      render: (_: [], __: Country, index: number) => index + 1,
-    },
+    // {
+    //   key: "id" as keyof Country,
+    //   label: "N",
+    //   render: (  index: number) => index + 1,
+    // },
     { key: "name" as keyof Country, label: " Name" },
     {
       key: "actions",

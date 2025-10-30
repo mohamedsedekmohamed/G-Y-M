@@ -45,7 +45,8 @@ export default function useDelete<T = any>() {
           });
 
           return res.data;
-        } catch (err) {
+        } 
+          catch (err: any) {
           if (attempt < retries) {
             await delay(retryDelay);
             continue;

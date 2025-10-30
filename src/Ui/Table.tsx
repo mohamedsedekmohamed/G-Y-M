@@ -50,7 +50,16 @@ const Table = <T extends { id?: string }>({
             theme === "dark" ? "bg-black/80" : "bg-gray-100"
           } transition-colors duration-300`}
         >
+         
           <tr>
+             <th  className={`px-4 py-3 font-semibold border ${
+                      theme === "dark"
+                        ? "border-gray-700 text-maincolor"
+                        : "border-gray-300 text-maincolor"
+                    }`}
+                  >
+            N
+          </th>
             {columns.map(
               (col) =>
                 col.showLabel !== false && (
@@ -70,16 +79,18 @@ const Table = <T extends { id?: string }>({
         </thead>
 
         <tbody>
+          
           {currentData.length > 0 ? (
             currentData.map((row, idx) => (
               <tr
-                key={(row.id as string) || idx}
+                key={ idx}
                 className={`cursor-pointer transition-colors ${
                   theme === "dark"
                     ? "hover:bg-gray-800"
                     : "hover:bg-gray-200"
                 }`}
               >
+             <td className="px-4">{idx+1}</td>
            {columns.map((col) => {
   const value = row[col.key];
   const isTruncated = typeof value === "string" && value.length > charLimit;

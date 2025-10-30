@@ -1,6 +1,6 @@
  
 import { useTheme } from "../Hooks/ThemeContext";
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { TiArrowBack } from "react-icons/ti";
 
