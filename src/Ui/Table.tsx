@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { useTheme } from "../Hooks/ThemeContext"; 
 
-// interface Column<T> {
-//   key: keyof T;
-//   label: string;
-//   showLabel?: boolean;
-//   render?: (value: [], row: T) => React.ReactNode;
-// }
+
 export interface Column<T> {
   key: keyof T | string; // ✅ دعم string
   label: string;
@@ -98,7 +93,7 @@ const Table = <T extends { id?: string }>({
               >
              <td className="px-4">{idx+1}</td>
            {columns.map((col) => {
-  const value = row[col.key];
+const value = row[col.key as keyof T];
   const isTruncated = typeof value === "string" && value.length > charLimit;
 
   return (
