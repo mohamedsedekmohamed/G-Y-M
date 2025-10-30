@@ -35,7 +35,7 @@ export default function useGet<T = []>() {
           });
 const normalizedData = Array.isArray(res.data)
   ? res.data
-  : res.data?.data || res.data;
+  : (res.data as any)?.data || res.data;
 
 setResponse({
   data: normalizedData,

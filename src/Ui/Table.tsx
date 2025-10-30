@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { useTheme } from "../Hooks/ThemeContext"; 
 
-interface Column<T> {
-  key: keyof T;
+// interface Column<T> {
+//   key: keyof T;
+//   label: string;
+//   showLabel?: boolean;
+//   render?: (value: [], row: T) => React.ReactNode;
+// }
+export interface Column<T> {
+  key: keyof T | string; // ✅ دعم string
   label: string;
   showLabel?: boolean;
-  render?: (value: [], row: T) => React.ReactNode;
+  render?: (value: any, row: T, index?: number) => React.ReactNode;
 }
 
 interface TableProps<T> {
