@@ -6,13 +6,13 @@ const delay = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 interface ResponseState<T> {
-  data: T | null;
+  data: T[]| null;
   loading: boolean;
   error: string | null;
   status: number | null;
 }
 
-export default function useGet<T = any>() {
+export default function useGet<T = []>() {
   const [response, setResponse] = useState<ResponseState<T>>({
     data: null,
     loading: false,

@@ -57,7 +57,7 @@ const nav=useNavigate()
     //   label: "N",
     //   render: (  index: number) => index + 1,
     // },
-    { key: "name" as keyof Country, label: " Name" },
+    { key: "name", label: " Name" },
     {
       key: "actions",
       label: "Actions",

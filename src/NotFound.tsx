@@ -1,5 +1,4 @@
  
-import { Link } from "react-router-dom";
 import { useTheme } from "./Hooks/useTheme";
 import { useNavigate } from "react-router-dom";
 const Error = () => {
