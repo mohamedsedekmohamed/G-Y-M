@@ -1,4 +1,4 @@
-import React from 'react'
+  
 import { BiChart } from "react-icons/bi";
 
 interface IconRentProps {

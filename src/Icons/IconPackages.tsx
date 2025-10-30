@@ -1,4 +1,4 @@
-import React from 'react'
+  
 import { VscLayersDot } from "react-icons/vsc";
 
 interface IconPackagesProps {

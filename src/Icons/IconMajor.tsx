@@ -1,4 +1,4 @@
-import React from 'react'
+  
 import { SiMainwp } from "react-icons/si";
 
 interface IconMajorProps {

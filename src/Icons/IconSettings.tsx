@@ -1,4 +1,4 @@
-import React from 'react'
+  
 import { FiSettings } from "react-icons/fi";
 
 interface IconSettingProps {

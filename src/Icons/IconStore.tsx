@@ -1,4 +1,4 @@
-import React from 'react'
+  
 import { LuStore } from "react-icons/lu";
 
 interface IconStoreProps {

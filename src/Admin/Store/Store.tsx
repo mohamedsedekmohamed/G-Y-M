@@ -1,4 +1,4 @@
-import React from 'react'
+  
 import ButtonAdd from '../../Ui/ButtonAdd'
 
 const Store = () => {

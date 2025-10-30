@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useTheme } from "../../Hooks/ThemeContext";
-import { useLocation } from "react-router-dom";
 import Country from "./Country/Country";
 import City from "./City/City";
 import State from "./State/State";

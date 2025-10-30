@@ -1,4 +1,4 @@
-import React from 'react'
+  
 import { MdPrivacyTip } from "react-icons/md";
 
 interface IconPrivateProps {

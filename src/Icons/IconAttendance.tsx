@@ -1,4 +1,4 @@
-import React from 'react'
+  
 import { LiaBusinessTimeSolid } from "react-icons/lia";
 
 interface IconAttendanceProps {

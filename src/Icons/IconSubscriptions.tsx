@@ -1,4 +1,4 @@
-import React from 'react'
+  
 import { RiUserFollowFill } from "react-icons/ri";
 
 interface IconSubscriptionsProps {

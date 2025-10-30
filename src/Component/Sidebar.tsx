@@ -1,4 +1,6 @@
-import React, { useEffect, useState, ReactElement } from "react";
+import React, { useEffect, useState } from "react";
+import type { ReactElement } from "react";
+
 import { NavLink, useLocation } from "react-router-dom";
 import { CgGym } from "react-icons/cg";
 import CiUser from "../Icons/IconUsers";
@@ -85,7 +87,6 @@ const Sidebar: React.FC<SidebarProps> = ({ setIsOpen, isOpen }) => {
 
   return (
     <>
-      {/* ====== الموبايل ====== */}
       <div
         className={`block md:hidden h-screen rounded-r-3xl top-0 z-50 transition-all duration-300 ${
           theme === "dark" ? "bg-[#0b0b0b]" : "bg-white"
@@ -156,7 +157,6 @@ const Sidebar: React.FC<SidebarProps> = ({ setIsOpen, isOpen }) => {
         </nav>
       </div>
 
-      {/* ====== الديسكتوب ====== */}
       <div
         className={`hidden md:block h-screen sticky rounded-tr-3xl top-0 z-50 transition-all duration-300 ${
           theme === "dark" ? "bg-[#0b0b0b]" : "bg-white"

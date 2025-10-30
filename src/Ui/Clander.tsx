@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { FaPlus, FaTrash, FaEdit, FaSave, FaTimes } from "react-icons/fa";
 
 interface MealNote {
