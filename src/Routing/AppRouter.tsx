@@ -9,7 +9,7 @@ import Attendance from "../Admin/Attendance/Attendance";
 import Classes from "../Admin/Classes/Classes";
 import Packages from "../Admin/Packages/Packages";
 import Rent from "../Admin/Rent/Rent";
-import Settings from "../Admin/Settings/Settings";
+import SetingRoutes from "../Admin/Settings/SettingsRoutes";
 import Private from "../Admin/Private/Private";
 import Reports from "../Admin/Reports/Reports";
 import Accountings from "../Admin/Accountings/Accountings";
@@ -26,11 +26,11 @@ import AddSubscriptions from "../Admin/Subscriptions/AddSubscriptions";
 import Majors from "../Admin/Majors/Majors";
 import AddMajors from "../Admin/Majors/AddMajors";
 import Login from "../Auth/Login";
-import AddCountry from "../Admin/Settings/Country/AddCountry"
-// import Login from '../Ui/Clander'
-import ProtectedRoute from "../Auth/ProtectedRoute"; // 👈 إضافة هنا
-import AddState from "../Admin/Settings/State/AddState";
-import AddCity from "../Admin/Settings/City/AddCity";
+import Payment from '../Admin/Payment/Payment'
+import AddPayment from "../Admin/Payment/AddPayment";
+import AddRoom from "../Admin/Room/AddRoom";
+import Room from "../Admin/Room/Room";
+import ProtectedRoute from "../Auth/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
       { path: "packages", element: <Packages /> },
       { path: "rent", element: <Rent /> },
       { path: "private", element: <Private /> },
-      { path: "settings", element: <Settings /> },
+      { path: "settings/*", element: <SetingRoutes /> },
       { path: "reports", element: <Reports /> },
       { path: "accountings", element: <Accountings /> },
       { path: "addaccountings", element: <AddAccountings /> },
@@ -73,9 +73,11 @@ const router = createBrowserRouter([
       { path: "subscriptions", element: <Subscriptions /> },
       { path: "majors", element: <Majors /> },
       { path: "addmajors", element: <AddMajors /> },
-      { path: "addcountry", element: <AddCountry /> },
-      { path: "addcity", element: <AddCity /> },
-      { path: "addstate", element: <AddState /> },
+      { path: "payment", element: <Payment /> },
+      { path: "addpayment", element: <AddPayment /> },
+      { path: "addroom", element: <AddRoom /> },
+      { path: "room", element: <Room /> },
+
     ],
   },
   { path: "*", element: <NotFound /> },

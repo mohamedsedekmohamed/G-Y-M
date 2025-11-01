@@ -8,9 +8,9 @@ import useGet from "../../../Hooks/useGet";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Loading from "../../../Component/Loading";
+import { useTranslation } from "react-i18next";
 
 interface Country {
-  id?: string;
   name: string;
 }
 
@@ -21,6 +21,7 @@ const AddCountry: React.FC = () => {
   const { data: countryData, get } = useGet<Country>();
   const { post, loading: postLoading } = usePost();
   const { put, loading: putLoading } = usePut();
+  const { t } = useTranslation();
 
   const [formData, setFormData] = useState<Country>({ name: "" });
   const isEdit = !!countryId 
@@ -48,7 +49,7 @@ const AddCountry: React.FC = () => {
 
   const handleSave = async () => {
     if (!formData.name?.trim()) {
-      toast.error("Please enter a country name.");
+      toast.error(t("Pleaseenteracountryname"));
       return;
     }
 
@@ -58,10 +59,10 @@ const AddCountry: React.FC = () => {
         formData
       );
       if ((res).success !== false) {
-        toast.success("Country updated successfully!");
+        toast.success(t("Countryupdatedsuccessfully"));
         nav("/admin/settings");
       } else {
-        toast.error("Failed to update country!");
+        toast.error(t("Failedtoupdatecountry"));
       }
     } else {
       const res = await post(
@@ -69,28 +70,28 @@ const AddCountry: React.FC = () => {
         formData
       );
       if ((res).success !== false) {
-        toast.success("Country added successfully!");
-        nav("/admin/settings");
+        toast.success(t("Countryaddedsuccessfully"));
+        nav("/admin/settings/country");
       } else {
-        toast.error("Failed to add country!");
+        toast.error(t("Failedtoaddcountry"));
       }
     }
   };
 
   if (isEdit && !countryData && !postLoading && !putLoading)
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center max-h-screen max-w-screen">
         <Loading />
       </div>
     );
 
   return (
     <div className="p-6 space-y-6">
-      <Titles title={isEdit ? "Edit Country" : "Add Country"} />
+      <Titles title={isEdit ? t("EditCountry") : t("AddCountry")} />
 
       <div className="flex flex-col max-w-lg gap-4">
         <InputField
-          placeholder="Country Name"
+          placeholder={t("CountryName")}
           name="name"
           value={formData.name}
           onChange={handleChange}

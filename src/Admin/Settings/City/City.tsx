@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import Loading from "../../../Component/Loading";
 import { useNavigate } from "react-router-dom";
 import { useSearchStore } from "../../../store/useSearchStore";
+import { useTranslation } from "react-i18next";
 
 interface City   {
   id: string;
@@ -23,7 +24,7 @@ interface City   {
 }
 const City  : React.FC = () => {
       const { searchQuery } = useSearchStore();
-  
+    const { t } = useTranslation();
   const { theme } = useTheme();
   const { data, loading, error, get } = useGet<City[]>();
   const { del } = useDelete();
@@ -34,16 +35,18 @@ const nav=useNavigate()
   
   const handleDelete = async (row: City) => {
     const result = await Swal.fire({
-      title: `Delete ${row.name}?`,
-      text: "This action cannot be undone!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it",
-      background: theme === "dark" ? "#1a1a1a" : "#fff",
-      color: theme === "dark" ? "#fff" : "#000",
-    });
+  title: t("DeleteConfirmationTitle", { name: row.name }),
+  text: t("DeleteConfirmationText"),
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#d33",
+  cancelButtonColor: "#3085d6",
+  confirmButtonText: t("YesDelete"),
+  cancelButtonText: t("Cancel"),
+  background: theme === "dark" ? "#1a1a1a" : "#fff",
+  color: theme === "dark" ? "#fff" : "#000",
+});
+
 
     if (result.isConfirmed) {
       const res = await del(
@@ -51,24 +54,24 @@ const nav=useNavigate()
       );
 
       if (res && (res).success !== false) {
-        toast.success("city deleted successfully!");
+        toast.success(t("citydeletedsuccessfully"));
         get("https://bcknd.sportego.org/api/locations/cities"); 
       } else {
-        toast.error("Failed to delete city!");
+        toast.error(t("Failedtodeletecity"));
       }
     }
   };
  const columns = [
    
-    { key: "name", label: " city" },
+    { key: "name", label:t("City") },
 {
   key: "CountryModel",
-  label: "Country",
+  label: t("Country"),
   render: (_:[], row:City) => row.CountryModel?.name || "-",
 },
     {
       key: "actions",
-      label: "Actions",
+      label: t("Actions"),
       showLabel:false,
       render: (_: [], row: City) => {
         const baseBtn =
@@ -82,10 +85,10 @@ const nav=useNavigate()
                   ? "bg-maincolor/80 hover:bg-maincolor text-white"
                   : "bg-maincolor hover:bg-maincolor/70 text-white"
               }`}
-             onClick={() => nav("/admin/addcity", { state: row.id })}
+             onClick={() => nav("/admin/settings/addcity", { state: row.id })}
 
             >
-              Edit
+              {t("Edit")}
             </button>
             <button
               className={`${baseBtn} ${
@@ -95,7 +98,7 @@ const nav=useNavigate()
               }`}
               onClick={() => handleDelete(row)}
             >
-              Delete
+              {t("Delete")}
             </button>
           </div>
         );
@@ -116,7 +119,7 @@ const filteredCity = useMemo(() => {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center w-screen h-screen">
+       <div className="flex items-center justify-center max-h-screen max-w-screen">
         <Loading />
       </div>
     );
@@ -124,12 +127,12 @@ const filteredCity = useMemo(() => {
   return (
     <div className="p-4">
       <div className="flex items-center justify-between mb-4">
-        <ButtonAdd title="Add City" to="/admin/addcity" />
+        <ButtonAdd title={t("City")} to="/admin/settings/addcity" />
       </div>
 
       {error && (
         <p className="font-medium text-red-500">
-          Failed to load countries: {error}
+          {t("Failedtoloadcities")}: {error}
         </p>
       )}
 
@@ -141,7 +144,7 @@ const filteredCity = useMemo(() => {
         <p
           className={theme === "dark" ? "text-gray-400" : "text-gray-500"}
         >
-          No Cities found.
+          {t("NoCitiesfound")}
         </p>
       )}
     </div>

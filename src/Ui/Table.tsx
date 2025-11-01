@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTheme } from "../Hooks/ThemeContext"; 
+import { useTranslation } from "react-i18next";
 
 
 export interface Column<T> {
@@ -25,6 +26,7 @@ const Table = <T extends { id?: string }>({
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [popupContent, setPopupContent] = useState<string | null>(null);
   const { theme } = useTheme(); 
+    const { t } = useTranslation();
 
   const truncateText = (text: string): string => {
     if (!text) return "";
@@ -125,8 +127,7 @@ const value = row[col.key as keyof T];
                   theme === "dark" ? "text-gray-400" : "text-gray-500"
                 }`}
               >
-                No data available
-              </td>
+{t("Nodataavailable")}              </td>
             </tr>
           )}
         </tbody>
@@ -147,7 +148,7 @@ const value = row[col.key as keyof T];
                 : "bg-gray-300 text-gray-800"
             }`}
           >
-            Prev
+            {t("Prev")}
           </button>
 
           {Array.from({ length: totalPages }).map((_, i) => (
@@ -175,7 +176,7 @@ const value = row[col.key as keyof T];
                 : "bg-gray-300 text-gray-800"
             }`}
           >
-            Next
+            {t("Next")}
           </button>
         </div>
       </div>
@@ -193,7 +194,7 @@ const value = row[col.key as keyof T];
                 theme === "dark" ? "text-white" : "text-gray-900"
               }`}
             >
-              Full Data
+              {t("[FullData]")}
             </h2>
             <p
               className={`break-words ${
@@ -206,7 +207,7 @@ const value = row[col.key as keyof T];
               onClick={() => setPopupContent(null)}
               className="px-4 py-2 mt-4 text-white rounded bg-maincolor hover:opacity-90"
             >
-              Close
+              {t("Close")}
             </button>
           </div>
         </div>

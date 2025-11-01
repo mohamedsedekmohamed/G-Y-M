@@ -1,12 +1,13 @@
- 
 import { useTheme } from "../Hooks/ThemeContext";
+import { useTranslation } from "react-i18next";
+
 interface InputFieldProps {
   placeholder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
   min?: number;
-  type?: "text" | "number" | "email" | "password" | "date"; // حددنا الأنواع الممكنة
+  type?: "text" | "number" | "email" | "password" | "date";
   disabled?: boolean;
 }
 
@@ -24,14 +25,20 @@ const InputField: React.FC<InputFieldProps> = ({
 
   const hasValue = value.trim() !== "";
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col w-full max-w-md gap-2">
       {placeholder && (
-        <label className={`text-lg font-normal ${theme=="dark"?"text-white":"text-maincolor"} `}>
-          {placeholder}
+        <label
+          className={`text-lg font-normal ${
+            theme === "dark" ? "text-white" : "text-maincolor"
+          }`}
+        >
+          {t(placeholder)}
         </label>
       )}
+
       <input
         type={type}
         name={name}
@@ -40,7 +47,7 @@ const InputField: React.FC<InputFieldProps> = ({
         min={min}
         onChange={onChange}
         maxLength={maxLength}
-        placeholder={`Enter ${placeholder}`}
+        placeholder={`${t("Enter")} ${t(placeholder)}`}
         className={`
           w-full px-5 py-3 rounded-xl
           bg-two text-maincolor placeholder-gray-700

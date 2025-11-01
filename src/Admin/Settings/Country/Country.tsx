@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import Loading from "../../../Component/Loading";
 import { useNavigate } from "react-router-dom";
 import { useSearchStore } from "../../../store/useSearchStore";
-
+import { useTranslation } from "react-i18next";
 interface Country {
   id: string;
   name: string;
@@ -22,6 +22,8 @@ const Country : React.FC = () => {
   const { theme } = useTheme();
   const { data, loading, error, get } = useGet<Country[]>();
   const { del } = useDelete();
+    const { t } = useTranslation();
+  
 const nav=useNavigate()
   useEffect(() => {
     get("https://bcknd.sportego.org/api/locations/countries");
@@ -29,16 +31,18 @@ const nav=useNavigate()
 
   const handleDelete = async (row: Country) => {
     const result = await Swal.fire({
-      title: `Delete ${row.name}?`,
-      text: "This action cannot be undone!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it",
-      background: theme === "dark" ? "#1a1a1a" : "#fff",
-      color: theme === "dark" ? "#fff" : "#000",
-    });
+  title: t("DeleteConfirmationTitle", { name: row.name }),
+  text: t("DeleteConfirmationText"),
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#d33",
+  cancelButtonColor: "#3085d6",
+  confirmButtonText: t("YesDelete"),
+  cancelButtonText: t("Cancel"),
+  background: theme === "dark" ? "#1a1a1a" : "#fff",
+  color: theme === "dark" ? "#fff" : "#000",
+});
+
 
     if (result.isConfirmed) {
       const res = await del(
@@ -46,20 +50,20 @@ const nav=useNavigate()
       );
 
       if (res && (res).success !== false) {
-        toast.success("Country deleted successfully!");
+        toast.success(t("Countrydeletedsuccessfully"));
         get("https://bcknd.sportego.org/api/locations/countries"); 
       } else {
-        toast.error("Failed to delete country!");
+        toast.error(t("Failedtodeletecountry"));
       }
     }
   };
 
   const columns = [
    
-    { key: "name", label: " Country" },
+    { key: "name", label: t("Country") },
     {
       key: "actions",
-      label: "Actions",
+      label: t("Actions"),
       showLabel:false,
       render: (_: [], row: Country) => {
         const baseBtn =
@@ -73,10 +77,10 @@ const nav=useNavigate()
                   ? "bg-maincolor/80 hover:bg-maincolor text-white"
                   : "bg-maincolor hover:bg-maincolor/70 text-white"
               }`}
-             onClick={() => nav("/admin/addcountry", { state: row.id })}
+             onClick={() => nav("/admin/settings/addcountry", { state: row.id })}
 
             >
-              Edit
+              {t("Edit")}
             </button>
 
             {/* Delete Button */}
@@ -88,7 +92,7 @@ const nav=useNavigate()
               }`}
               onClick={() => handleDelete(row)}
             >
-              Delete
+              {t("Delete")}
             </button>
           </div>
         );
@@ -104,7 +108,7 @@ const nav=useNavigate()
 
   if (loading)
     return (
-      <div className="flex items-center justify-center w-screen h-screen">
+      <div className="flex items-center justify-center max-h-screen max-w-screen">
         <Loading />
       </div>
     );
@@ -112,12 +116,12 @@ const nav=useNavigate()
   return (
     <div className="p-4">
       <div className="flex items-center justify-between mb-4">
-        <ButtonAdd title="Add Country" to="/admin/addcountry" />
+<ButtonAdd title={t("Country")} to="/admin/settings/addcountry" />
       </div>
 
       {error && (
         <p className="font-medium text-red-500">
-          Failed to load countries: {error}
+          {t("Failedtoloadcountries")}: {error}
         </p>
       )}
 
@@ -129,7 +133,7 @@ const nav=useNavigate()
         <p
           className={theme === "dark" ? "text-gray-400" : "text-gray-500"}
         >
-          No countries found.
+          {t("Nocountriesfound")}
         </p>
       )}
     </div>

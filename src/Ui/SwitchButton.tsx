@@ -1,6 +1,5 @@
-// SwitchButton.tsx
- 
 import { useTheme } from "../Hooks/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface SwitchButtonProps {
   checked: boolean;
@@ -18,6 +17,8 @@ const SwitchButton: React.FC<SwitchButtonProps> = ({
   offLabel = "Off",
 }) => {
   const { theme } = useTheme();
+  const { i18n } = useTranslation();
+  const isRTL = i18n.dir() === "rtl"; // ✅ تحديد الاتجاه الحالي
 
   return (
     <div className="flex items-center gap-3">
@@ -38,7 +39,13 @@ const SwitchButton: React.FC<SwitchButtonProps> = ({
       >
         <span
           className={`inline-block h-7 w-7 rounded-full shadow-md transform transition-all duration-500 ease-in-out
-            ${checked ? "translate-x-8" : "translate-x-0"}
+            ${
+              checked
+                ? isRTL
+                  ? "-translate-x-8" // ✅ بالعكس في اللغة العربية
+                  : "translate-x-8"
+                : "translate-x-0"
+            }
             ${checked ? "bg-green-400 animate-pulse" : "bg-red-400"}
           `}
           style={{

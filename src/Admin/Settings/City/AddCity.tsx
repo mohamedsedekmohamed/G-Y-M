@@ -9,6 +9,7 @@ import useGet from "../../../Hooks/useGet";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Loading from "../../../Component/Loading";
+import { useTranslation } from "react-i18next";
 
 interface City {
   id?: string;
@@ -21,15 +22,20 @@ interface Country {
   id: number;
   name: string;
 }
+interface CountriesResponse {
+  countries: Country[];
+  
+}
 
 const AddCity: React.FC = () => {
   const nav = useNavigate();
   const location = useLocation();
   const cityId = location.state || null;
   const isEdit = !!cityId;
+    const { t } = useTranslation();
 
-  const { get: getCountries } = useGet<{ data: Country[] }>();
-  const { get: getCity } = useGet<{ data: City }>();
+  const { get: getCountries } = useGet<CountriesResponse>();
+  const { get: getCity } = useGet<City>();
 
   const { post, loading: postLoading } = usePost();
   const { put, loading: putLoading } = usePut();
@@ -42,19 +48,23 @@ const AddCity: React.FC = () => {
     const fetchCountries = async () => {
       setLoadingData(true);
       try {
-        const res = await getCountries("https://bcknd.sportego.org/api/locations/countries");
-        if (res) {
-          setCountries(res);
+        const res = await getCountries("https://bcknd.sportego.org/api/locations/selections");
+        if (res?.countries) {
+          setCountries(
+            res.countries.map((country) => ({
+              id: country.id,
+              name: country.name,
+            }))
+          );
         }
       } catch {
-        toast.error("Failed to load countries");
+        toast.error(t("Failedtoloadcities"));
       } finally {
         setLoadingData(false);
       }
     };
     fetchCountries();
   }, []);
-
   useEffect(() => {
     const fetchCity = async () => {
       if (isEdit && cityId) {
@@ -68,7 +78,7 @@ const AddCity: React.FC = () => {
             });
           }
         } catch {
-          toast.error("Failed to load city data");
+          toast.error(t("Failedtoloadcitydata"));
         } finally {
           setLoadingData(false);
         }
@@ -93,11 +103,11 @@ const AddCity: React.FC = () => {
 
   const handleSave = async () => {
     if (!formData.name?.trim()) {
-      toast.error("Please enter a city name.");
+      toast.error(t("Pleaseenteracityname"));
       return;
     }
     if (!formData.countryId) {
-      toast.error("Please select a country.");
+      toast.error(t("Pleaseselectacountry"));
       return;
     }
 
@@ -112,28 +122,25 @@ const AddCity: React.FC = () => {
         payload
       );
       if (res?.success !== false) {
-        toast.success("City updated successfully!");
-        nav("/admin/settings");
+        toast.success(t("Cityupdatedsuccessfully"));
+        nav("/admin/settings/city");
       } else {
-        toast.error("Failed to update city!");
+        toast.error(t("Failedtoupdatecity"));
       }
     } else {
-      const res = await post(
-        "https://bcknd.sportego.org/api/locations/cities",
-        payload
-      );
+      const res = await post("https://bcknd.sportego.org/api/locations/cities", payload);
       if (res?.success !== false) {
-        toast.success("City added successfully!");
-        nav("/admin/settings");
+        toast.success(t('Cityaddedsuccessfully'));
+        nav("/admin/settings/city");
       } else {
-        toast.error("Failed to add city!");
+        toast.error(t("Failedtoaddcity"));
       }
     }
   };
 
   if ((isEdit && loadingData) || postLoading || putLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center max-h-screen max-w-screen">
         <Loading />
       </div>
     );
@@ -141,18 +148,18 @@ const AddCity: React.FC = () => {
 
   return (
     <div className="p-6 space-y-6">
-      <Titles title={isEdit ? "Edit City" : "Add City"} />
+      <Titles title={isEdit ? t("EditCity"): t("AddCity")} />
 
       <div className="flex flex-col max-w-lg gap-4">
         <InputField
-          placeholder="City Name"
+          placeholder={t("CityName")}
           name="name"
           value={formData.name}
           onChange={handleChange}
         />
 
         <InputArrow
-          placeholder="Country"
+          placeholder={t("Country")}
           name="countryId"
           value={formData.countryId}
           onChange={handleCountryChange}

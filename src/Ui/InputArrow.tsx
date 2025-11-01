@@ -1,5 +1,6 @@
  
 import { useTheme } from "../Hooks/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface Option {
   id: string | number;
@@ -25,6 +26,7 @@ const InputArrow: React.FC<InputArrowProps> = ({
 }) => {
   const hasValue = value !== "" && value !== null && value !== undefined;
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col w-full max-w-md gap-2">
@@ -61,7 +63,7 @@ const InputArrow: React.FC<InputArrowProps> = ({
         }}
       >
         <option value="" disabled>
-          -- Select {placeholder} --
+          -- {t("Select")} {placeholder} --
         </option>
         {options.map((opt) => (
           <option key={opt.id} value={opt.id}>
